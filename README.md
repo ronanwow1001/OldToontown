@@ -1,4 +1,4 @@
-ToontownFritzServer
+Toontown Fritz Server
 ===================
 
-Fritz's Private Server Source Code
+Initial work on Fritz's private server.
