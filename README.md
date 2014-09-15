@@ -3,9 +3,9 @@ Toontown Fritz Server
 
 Initial work on Fritz's private server.
 
-People
-======
+Staff
+=====
 
-Fritz/sillypeppymacspeed - creator
+Fritz/sillypeppymacspeed - Project Creator, Lead Developer
 
-Wilee999 - developer
+Wilee999 - Repository Manager, Developer
