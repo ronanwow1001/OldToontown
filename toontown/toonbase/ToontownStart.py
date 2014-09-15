@@ -14,14 +14,12 @@ import random
 import __builtin__
 
 try:
-#    pass - shouldn't pass
-    launcher # added
+    launcher
 except:
     from toontown.launcher.ToontownDummyLauncher import ToontownDummyLauncher
     launcher = ToontownDummyLauncher()
     __builtin__.launcher = launcher
 
-# launcher.setRegistry('EXIT_PAGE', 'normal') - commented out, no setRegistry necessary
 pollingDelay = 0.5
 print 'ToontownStart: Polling for game2 to finish...'
 while not launcher.getGame2Done():
