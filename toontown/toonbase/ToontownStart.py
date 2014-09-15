@@ -1,5 +1,3 @@
-# File: T (Python 2.4)
-
 import __builtin__
 
 class game:
@@ -107,7 +105,6 @@ __builtin__.loader = base.loader
 autoRun = ConfigVariableBool('toontown-auto-run', 1)
 if autoRun and launcher.isDummy():
     if not Thread.isTrueThreads() or __name__ == '__main__':
-        
         try:
             run()
         except SystemExit:
