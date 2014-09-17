@@ -1,5 +1,3 @@
-# File: T (Python 2.4)
-
 from otp.otpbase import OTPBase
 from otp.otpbase import OTPLauncherGlobals
 from otp.otpbase import OTPGlobals
@@ -179,13 +177,8 @@ class ToonBase(OTPBase.OTPBase):
     def disableShowbaseMouse(self):
         self.useDrive()
         self.disableMouse()
-        if self.mouseInterface:
-            self.mouseInterface.reparentTo(self.dataUnused)
-        
-        if base.mouse2cam:
-            self.mouse2cam.reparentTo(self.dataUnused)
-        
-
+        if self.mouseInterface: self.mouseInterface.detachNode()
+        if self.mouse2cam: self.mouse2cam.detachNode()
     
     def _ToonBase__walking(self, pressed):
         self.walking = pressed
