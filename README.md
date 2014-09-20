@@ -8,4 +8,4 @@ Staff
 
 Fritz/sillypeppymacspeed - Project Creator, Project Manager, Team Manager, Lead Developer, Idea Manager
 
-Wilee999 - Organization Manager, Repository Manager, Initial Developer, Developer
+Wilee999 - Assistant Team Manager, Organization Manager, Repository Manager, Initial Developer, Developer
