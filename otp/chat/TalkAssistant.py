@@ -1,5 +1,3 @@
-# File: T (Python 2.4)
-
 import string
 import sys
 from direct.showbase import DirectObject
@@ -13,7 +11,7 @@ from otp.chat.TalkHandle import TalkHandle
 import time
 from otp.chat.TalkGlobals import *
 from otp.chat.ChatGlobals import *
-from libotp import CFSpeech, CFTimeout, CFThought
+from otp.nametag.NametagConstants import CFSpeech, CFTimeout, CFThought
 ThoughtPrefix = '.'
 
 class TalkAssistant(DirectObject.DirectObject):
@@ -241,7 +239,7 @@ class TalkAssistant(DirectObject.DirectObject):
             if word == '' or base.whiteList.isWord(word):
                 newwords.append(word)
                 continue
-            newwords.append('\x1WLRed\x1' + word + '\x2')
+            newwords.append('\x01WLRed\x01' + word + '\x02')
         
         newText = ' '.join(newwords)
         return newText
@@ -314,20 +312,16 @@ class TalkAssistant(DirectObject.DirectObject):
             
             return str(eval(message, globals(), TalkAssistant.ExecNamespace))
         except SyntaxError:
-            
             try:
-                if not isClient():
-                    print 'EXECWARNING TalkAssistant exec: %s' % message
-                    printStack()
-                
                 exec message in globals(), TalkAssistant.ExecNamespace
                 return 'ok'
-            exception = sys.exc_info()[0]
-            extraInfo = sys.exc_info()[1]
-            if extraInfo:
-                return str(extraInfo)
-            else:
-                return str(exception)
+            except:
+                exception = sys.exc_info()[0]
+                extraInfo = sys.exc_info()[1]
+                if extraInfo:
+                    return str(extraInfo)
+                else:
+                    return str(exception)
 
         
 

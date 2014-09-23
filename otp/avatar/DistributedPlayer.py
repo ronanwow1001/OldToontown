@@ -1,7 +1,6 @@
 from pandac.PandaModules import *
-from otp.nametag.Nametag import Nametag
-from otp.nametag.NametagGroup import NametagGroup
-from otp.nametag.NametagConstants import CFSpeech, CFThought, CFTimeout, CFPageButton, CFNoQuitButton, CFQuitButton
+from otp.margins.WhisperPopup import WhisperPopup
+from otp.nametag.NametagConstants import CFQuicktalker, CFPageButton, CFQuitButton, CFSpeech, CFThought, CFTimeout
 from otp.chat import ChatGarbler
 import string
 from direct.task import Task
@@ -156,7 +155,6 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
     
     def setSystemMessage(self, aboutId, chatString, whisperType = WhisperPopup.WTSystem):
         self.displayWhisper(aboutId, chatString, whisperType)
-
     
     def displayWhisper(self, fromId, chatString, whisperType):
         print 'Whisper type %s from %s: %s' % (whisperType, fromId, chatString)
