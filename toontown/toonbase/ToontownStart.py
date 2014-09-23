@@ -3,7 +3,7 @@ import __builtin__
 
 print 'ToontownStart: Starting Old Toontown...'
 
-loadPrcFile('config/config_dev.prc')
+loadPrcFile('config/config.prc')
 
 class game:
     name = 'toontown'
