@@ -1,5 +1,3 @@
-# File: L (Python 2.4)
-
 import random
 import math
 import time
