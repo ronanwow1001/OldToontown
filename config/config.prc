@@ -22,12 +22,12 @@ server-port 7198
 load-display pandagl
 
 # DC Files
-dc-file config/toon.dc
-dc-file config/otp.dc
+dc-file astron/toon.dc
+dc-file astron/otp.dc
 
 # Audio library name and the Account DB file
 audio-library-name p3openal_audio
-accountdb-local-file databases/csm-cookies.db
+accountdb-local-file astron/database/account-db.db
 
 # No account server
 #account-server-endpoint https://www.dummy.com/api/account
