@@ -1,5 +1,3 @@
-# File: N (Python 2.4)
-
 from pandac.PandaModules import *
 from toontown.toonbase import ToontownGlobals
 import random
@@ -952,19 +950,13 @@ npcFriends.update(FOnpcFriends)
 def getNPCName(npcId):
     if NPCToonDict.has_key(npcId):
         return NPCToonDict[npcId][1]
-    
-
 
 def npcFriendsMinMaxStars(minStars, maxStars):
-    continue
-    return _[1]
-
+    return [ id for id in npcFriends.keys() if getNPCTrackLevelHpRarity(id)[3] >= minStars and getNPCTrackLevelHpRarity(id)[3] <= maxStars ]
 
 def getNPCTrack(npcId):
     if npcFriends.has_key(npcId):
         return npcFriends[npcId][0]
-    
-
 
 def getNPCTrackHp(npcId):
     if npcFriends.has_key(npcId):

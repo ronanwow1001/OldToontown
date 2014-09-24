@@ -1,5 +1,3 @@
-# File: T (Python 2.4)
-
 global DogDialogueArray, CatDialogueArray, HorseDialogueArray, RabbitDialogueArray, MouseDialogueArray, DuckDialogueArray, MonkeyDialogueArray, BearDialogueArray, PigDialogueArray, Preloaded
 from otp.avatar import Avatar
 from otp.avatar.Avatar import teleportNotify
@@ -952,7 +950,8 @@ class Toon(Avatar.Avatar, ToonHead):
                 
                 try:
                     texName = ToonDNA.BoyShorts[self.style.botTex]
-                texName = ToonDNA.BoyShorts[0]
+                except:
+                    texName = ToonDNA.BoyShorts[0]
 
             else:
                 
