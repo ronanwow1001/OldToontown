@@ -1,9 +1,4 @@
-# File: D (Python 2.4)
-
-global ESGenerating, ESGenerated
-ESGenerating = ESGenerating
-ESGenerated = ESGenerated
-from direct.distributed.DistributedObject import ESNum2Str
+from direct.distributed.DistributedObject import ESGenerating, ESGenerated, ESNum2Str
 
 class DelayDeletable:
     DelayDeleteSerialGen = SerialNumGen()
@@ -11,8 +6,9 @@ class DelayDeletable:
     def delayDelete(self):
         pass
 
-    
     def acquireDelayDelete(self, name):
+        global ESGenerating
+        global ESGenerated
         if not (self._delayDeleteForceAllow) and self.activeState not in (ESGenerating, ESGenerated):
             self.notify.error('cannot acquire DelayDelete "%s" on %s because it is in state %s' % (name, self.__class__.__name__, ESNum2Str[self.activeState]))
         

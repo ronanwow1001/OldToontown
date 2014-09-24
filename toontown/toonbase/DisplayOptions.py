@@ -1,11 +1,9 @@
-# File: D (Python 2.4)
-
 import copy
 import string
 import os
 import sys
 import datetime
-from pandac.PandaModules import loadPrcFileData, Settings, WindowProperties
+from pandac.PandaModules import loadPrcFileData, WindowProperties
 from otp.otpgui import OTPDialog
 from otp.otpbase import OTPGlobals
 from otp.otpbase import OTPRender

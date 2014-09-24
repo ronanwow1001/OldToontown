@@ -297,17 +297,12 @@ def compileGlobalAnimList():
                 file = phaseStr + TorsoDict[key] + anim[1]
                 TorsoAnimDict[key][anim[0]] = file
             
-        
         for key in HeadDict.keys():
-            if string.find(key, 'd') >= 0:
-                HeadAnimDict.setdefault(key, { })
+            if key.find('d') >= 0:
+                HeadAnimDict.setdefault(key, {})
                 for anim in animList:
                     file = phaseStr + HeadDict[key] + anim[1]
                     HeadAnimDict[key][anim[0]] = file
-                
-        
-    
-
 
 def loadDialog():
     loadPath = 'phase_3.5/audio/dial/'
