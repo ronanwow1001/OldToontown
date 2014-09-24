@@ -309,18 +309,15 @@ class InventoryBase(DirectObject.DirectObject):
         self.updateInventory(newInventory)
         return 1
 
-    
     def maxOutInv(self, filterUberGags = 0, filterPaidGags = 0):
-        if level <= LAST_REGULAR_GAG_LEVEL or not filterUberGags:
-            if not not filterPaidGags:
-                if unpaid:
-                    pass
-                if not gagIsPaidOnly(track, level):
-                    self.addItem(track, level)
-                
-                not gagIsPaidOnly(track, level)
-            continue
-            not filterPaidGags
+        unpaid = self.toon.getGameAccess() != ToontownGlobals.AccessFull
+        for track in range(len(Tracks)):
+            if self.toon.hasTrackAccess(track):
+                for level in range(len(Levels[track])):
+                    if level <= LAST_REGULAR_GAG_LEVEL or not filterUberGags:
+                        if not filterPaidGags or not (unpaid and gagIsPaidOnly(track, level)):
+                            self.addItem(track, level)
+
         addedAnything = 1
         while addedAnything:
             addedAnything = 0
@@ -330,31 +327,19 @@ class InventoryBase(DirectObject.DirectObject):
                     level = len(Levels[track]) - 1
                     if level > LAST_REGULAR_GAG_LEVEL and filterUberGags:
                         level = LAST_REGULAR_GAG_LEVEL
-                    
-                    if not not filterPaidGags:
-                        if unpaid:
-                            pass
-                        if not gagIsPaidOnly(track, level):
-                            result = self.addItem(track, level)
-                        
+                    if not filterPaidGags or not (unpaid and gagIsPaidOnly(track, level)):
+                        result = self.addItem(track, level)
                     level -= 1
                     while result <= 0 and level >= 0:
-                        if not not filterPaidGags:
-                            if unpaid:
-                                pass
-                            if not gagIsPaidOnly(track, level):
-                                result = self.addItem(track, level)
-                            
+                        if not filterPaidGags or not (unpaid and gagIsPaidOnly(track, level)):
+                            result = self.addItem(track, level)
                         level -= 1
-                        continue
-                        not filterUberGags
+
                     if result > 0:
                         addedAnything = 1
-                    
-                result > 0
-            
-        self.calcTotalProps()
 
+        self.calcTotalProps()
+        return None
     
     def NPCMaxOutInv(self, targetTrack = -1):
         result = 0

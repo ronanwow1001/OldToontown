@@ -735,59 +735,109 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
     def deleteDeactivateButtons(self):
         self.deleteExitButton['command'] = None
 
-    
     def purchaseActivateButtons(self):
-        button = self.buttons[track][level]
-        if self.itemIsUsable(track, level):
-            button.show()
-            unpaid = not base.cr.isPaid()
-            if not self.numItem(track, level) >= self.getMax(track, level) and totalProps == maxProps:
-                if unpaid or gagIsPaidOnly(track, level) or level > LAST_REGULAR_GAG_LEVEL:
-                    if gagIsPaidOnly(track, level):
-                        self.makeDisabledPressable(button, track, level)
-                    elif unpaid and gagIsVelvetRoped(track, level):
-                        self.makeDisabledPressable(button, track, level)
+        self.reparentTo(aspect2d)
+        self.setPos(0.2, 0, -0.04)
+        self.setScale(1)
+        if self.purchaseFrame == None:
+            self.loadPurchaseFrame()
+        self.purchaseFrame.show()
+        self.invFrame.reparentTo(self.purchaseFrame)
+        self.invFrame.setPos(-0.235, 0, 0.52)
+        self.invFrame.setScale(0.81)
+        self.detailFrame.setPos(1.17, 0, -0.02)
+        self.detailFrame.setScale(1.25)
+        totalProps = self.totalProps
+        maxProps = self.toon.getMaxCarry()
+        self.deleteEnterButton.show()
+        self.deleteEnterButton.setPos(-0.441, 0, -0.917)
+        self.deleteEnterButton.setScale(0.75)
+        self.deleteExitButton.hide()
+        self.deleteExitButton.setPos(-0.441, 0, -0.917)
+        self.deleteExitButton.setScale(0.75)
+        if self.gagTutMode:
+            self.deleteEnterButton.hide()
+        self.deleteEnterButton['command'] = self.setActivateMode
+        self.deleteEnterButton['extraArgs'] = ['purchaseDelete']
+        for track in range(len(Tracks)):
+            if self.toon.hasTrackAccess(track):
+                self.showTrack(track)
+                for level in range(len(Levels[track])):
+                    button = self.buttons[track][level]
+                    if self.itemIsUsable(track, level):
+                        button.show()
+                        unpaid = not base.cr.isPaid()
+                        if self.numItem(track, level) >= self.getMax(track, level) or totalProps == maxProps or unpaid and gagIsPaidOnly(track, level) or level > LAST_REGULAR_GAG_LEVEL:
+                            if gagIsPaidOnly(track, level):
+                                self.makeDisabledPressable(button, track, level)
+                            elif unpaid and gagIsVelvetRoped(track, level):
+                                self.makeDisabledPressable(button, track, level)
+                            else:
+                                self.makeUnpressable(button, track, level)
+                        elif unpaid and gagIsVelvetRoped(track, level):
+                            self.makeDisabledPressable(button, track, level)
+                        else:
+                            self.makePressable(button, track, level)
                     else:
-                        self.makeUnpressable(button, track, level)
-                elif unpaid and gagIsVelvetRoped(track, level):
-                    self.makeDisabledPressable(button, track, level)
-                else:
-                    self.makePressable(button, track, level)
-                gagIsVelvetRoped(track, level)
-                button.hide()
-            continue
-            totalProps == maxProps
-            self.hideTrack(track)
+                        button.hide()
 
+            else:
+                self.hideTrack(track)
+
+        return
     
     def purchaseDeactivateButtons(self):
         self.invFrame.reparentTo(self)
         self.purchaseFrame.hide()
 
-    
     def storePurchaseActivateButtons(self):
-        button = self.buttons[track][level]
-        if self.itemIsUsable(track, level):
-            button.show()
-            unpaid = not base.cr.isPaid()
-            if not self.numItem(track, level) >= self.getMax(track, level) and totalProps == maxProps:
-                if unpaid or gagIsPaidOnly(track, level) or level > LAST_REGULAR_GAG_LEVEL:
-                    if gagIsPaidOnly(track, level):
-                        self.makeDisabledPressable(button, track, level)
-                    elif unpaid and gagIsVelvetRoped(track, level):
-                        self.makeDisabledPressable(button, track, level)
+        self.reparentTo(aspect2d)
+        self.setPos(0.2, 0, -0.04)
+        self.setScale(1)
+        if self.storePurchaseFrame == None:
+            self.loadStorePurchaseFrame()
+        self.storePurchaseFrame.show()
+        self.invFrame.reparentTo(self.storePurchaseFrame)
+        self.invFrame.setPos(-0.23, 0, 0.505)
+        self.invFrame.setScale(0.81)
+        self.detailFrame.setPos(1.175, 0, 0)
+        self.detailFrame.setScale(1.25)
+        totalProps = self.totalProps
+        maxProps = self.toon.getMaxCarry()
+        self.deleteEnterButton.show()
+        self.deleteEnterButton.setPos(-0.55, 0, -0.91)
+        self.deleteEnterButton.setScale(0.75)
+        self.deleteExitButton.hide()
+        self.deleteExitButton.setPos(-0.55, 0, -0.91)
+        self.deleteExitButton.setScale(0.75)
+        self.deleteEnterButton['command'] = self.setActivateMode
+        self.deleteEnterButton['extraArgs'] = ['storePurchaseDelete']
+        for track in range(len(Tracks)):
+            if self.toon.hasTrackAccess(track):
+                self.showTrack(track)
+                for level in range(len(Levels[track])):
+                    button = self.buttons[track][level]
+                    if self.itemIsUsable(track, level):
+                        button.show()
+                        unpaid = not base.cr.isPaid()
+                        if self.numItem(track, level) >= self.getMax(track, level) or totalProps == maxProps or unpaid and gagIsPaidOnly(track, level) or level > LAST_REGULAR_GAG_LEVEL:
+                            if gagIsPaidOnly(track, level):
+                                self.makeDisabledPressable(button, track, level)
+                            elif unpaid and gagIsVelvetRoped(track, level):
+                                self.makeDisabledPressable(button, track, level)
+                            else:
+                                self.makeUnpressable(button, track, level)
+                        elif unpaid and gagIsVelvetRoped(track, level):
+                            self.makeDisabledPressable(button, track, level)
+                        else:
+                            self.makePressable(button, track, level)
                     else:
-                        self.makeUnpressable(button, track, level)
-                elif unpaid and gagIsVelvetRoped(track, level):
-                    self.makeDisabledPressable(button, track, level)
-                else:
-                    self.makePressable(button, track, level)
-                gagIsVelvetRoped(track, level)
-                button.hide()
-            continue
-            totalProps == maxProps
-            self.hideTrack(track)
+                        button.hide()
 
+            else:
+                self.hideTrack(track)
+
+        return
     
     def storePurchaseDeactivateButtons(self):
         self.invFrame.reparentTo(self)
@@ -876,28 +926,67 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         self.invFrame.reparentTo(self)
         self.purchaseFrame.hide()
 
-    
     def battleActivateButtons(self):
-        unpaid = not base.cr.isPaid()
-        button.show()
-        if not self.numItem(track, level) <= 0:
-            if not track == HEAL_TRACK or not (self.heal):
-                if (track == TRAP_TRACK or not (self.trap) or track == LURE_TRACK) and not (self.lure):
-                    self.makeUnpressable(button, track, level)
-                elif unpaid and gagIsVelvetRoped(track, level):
-                    self.makeDisabledPressable(button, track, level)
-                elif self.itemIsCredit(track, level):
-                    self.makePressable(button, track, level)
-                else:
-                    self.makeNoncreditPressable(button, track, level)
-                gagIsVelvetRoped(track, level)
-                button.hide()
-            continue
-            not (self.heal)
-            self.hideTrack(track)
-        self.propBonusIval.loop()
+        self.stopAndClearPropBonusIval()
+        self.reparentTo(aspect2d)
+        self.setPos(0, 0, 0.1)
+        self.setScale(1)
+        if self.battleFrame == None:
+            self.loadBattleFrame()
+        self.battleFrame.show()
+        self.battleFrame.setScale(0.9)
+        self.invFrame.reparentTo(self.battleFrame)
+        self.invFrame.setPos(-0.26, 0, 0.35)
+        self.invFrame.setScale(1)
+        self.detailFrame.setPos(1.125, 0, -0.08)
+        self.detailFrame.setScale(1)
+        self.deleteEnterButton.hide()
+        self.deleteExitButton.hide()
+        if self.bldg == 1:
+            self.runButton.hide()
+            self.sosButton.show()
+            self.passButton.show()
+        elif self.tutorialFlag == 1:
+            self.runButton.hide()
+            self.sosButton.hide()
+            self.passButton.hide()
+            self.fireButton.hide()
+        else:
+            self.runButton.show()
+            self.sosButton.show()
+            self.passButton.show()
+            self.fireButton.show()
+            if localAvatar.getPinkSlips() > 0:
+                self.fireButton['state'] = DGG.NORMAL
+                self.fireButton['image_color'] = Vec4(0, 0.6, 1, 1)
+            else:
+                self.fireButton['state'] = DGG.DISABLED
+                self.fireButton['image_color'] = Vec4(0.4, 0.4, 0.4, 1)
+        for track in range(len(Tracks)):
+            if self.toon.hasTrackAccess(track):
+                self.showTrack(track)
+                for level in range(len(Levels[track])):
+                    button = self.buttons[track][level]
+                    if self.itemIsUsable(track, level):
+                        unpaid = not base.cr.isPaid()
+                        button.show()
+                        if self.numItem(track, level) <= 0 or track == HEAL_TRACK and not self.heal or track == TRAP_TRACK and not self.trap or track == LURE_TRACK and not self.lure:
+                            self.makeUnpressable(button, track, level)
+                        elif unpaid and gagIsVelvetRoped(track, level):
+                            self.makeDisabledPressable(button, track, level)
+                        elif self.itemIsCredit(track, level):
+                            self.makePressable(button, track, level)
+                        else:
+                            self.makeNoncreditPressable(button, track, level)
+                    else:
+                        button.hide()
 
-    
+            else:
+                self.hideTrack(track)
+
+        self.propBonusIval.loop()
+        return
+
     def battleDeactivateButtons(self):
         self.invFrame.reparentTo(self)
         self.battleFrame.hide()
