@@ -1,5 +1,3 @@
-# File: D (Python 2.4)
-
 from pandac.PandaModules import *
 from direct.distributed.ClockDelta import *
 from direct.distributed import DistributedObject
@@ -104,7 +102,6 @@ class DistributedCountryClub(DistributedObject.DistributedObject):
     
     def setRoomDoIds(self, roomDoIds):
         self.roomDoIds = roomDoIds
-        continue
         self.roomWatcher = [](_[1], [ DistributedCountryClubRoom.getCountryClubRoomReadyPostName(doId) for doId in self.roomDoIds ], self.gotAllRooms)
 
     

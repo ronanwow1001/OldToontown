@@ -322,7 +322,8 @@ class ShardPage(ShtikerPage.ShtikerPage):
                 
                 try:
                     place = base.cr.playGame.hood.loader.place
-                place = base.cr.playGame.hood.place
+                except:
+                    place = base.cr.playGame.hood.place
 
 
             place.requestTeleport(canonicalHoodId, canonicalHoodId, shardId, -1)

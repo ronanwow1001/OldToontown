@@ -223,8 +223,10 @@ class QuestMap(DirectFrame):
                     taskMgr.add(self.update, 'questMapUpdate')
                 else:
                     self.stop()
-                mapsGeom.removeNode()
-            self.stop()
+                    mapsGeom.removeNode()
+            
+            except:
+                self.stop()
 
         
 

@@ -1,12 +1,10 @@
-# File: T (Python 2.4)
-
 from direct.showbase import PythonUtil
 from otp.speedchat.SCMenu import SCMenu
 from otp.speedchat.SCMenuHolder import SCMenuHolder
 from otp.speedchat.SCStaticTextTerminal import SCStaticTextTerminal
 from toontown.speedchat.TTSCIndexedTerminal import TTSCIndexedTerminal
 from otp.otpbase import OTPLocalizer
-from toontown.cogdominium import CogdoInterior
+#from toontown.cogdominium import CogdoInterior - no field offices here
 SellbotFieldOfficeMenu = [
     (OTPLocalizer.SellbotFieldOfficeMenuSections[0], range(30404, 30409)),
     (OTPLocalizer.SellbotFieldOfficeMenuSections[1], range(30409, 30419))]

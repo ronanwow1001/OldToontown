@@ -768,7 +768,6 @@ class MagicWordManager(DistributedObject.DistributedObject):
             try:
                 bitmask |= BitMask32.bit(int(w))
                 print bitmask
-            continue
             except ValueError:
                 invalid += ' ' + w
                 continue

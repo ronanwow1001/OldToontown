@@ -52,9 +52,7 @@ class DistributedMint(DistributedObject.DistributedObject):
     
     def setRoomDoIds(self, roomDoIds):
         self.roomDoIds = roomDoIds
-        continue
         self.roomWatcher = [](_[1], [ DistributedMintRoom.getMintRoomReadyPostName(doId) for doId in self.roomDoIds ], self.gotAllRooms)
-
     
     def gotAllRooms(self):
         self.notify.debug('mint %s: got all rooms' % self.doId)

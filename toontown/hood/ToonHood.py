@@ -1,5 +1,3 @@
-# File: T (Python 2.4)
-
 from pandac.PandaModules import *
 from toontown.toonbase.ToonBaseGlobal import *
 from toontown.toonbase.ToontownGlobals import *
@@ -11,7 +9,7 @@ from toontown.minigame import Purchase
 from otp.avatar import DistributedAvatar
 import Hood
 from toontown.building import SuitInterior
-from toontown.cogdominium import CogdoInterior
+#from toontown.cogdominium import CogdoInterior - no field offices here
 from toontown.toon.Toon import teleportDebug
 
 class ToonHood(Hood.Hood):
@@ -178,35 +176,33 @@ class ToonHood(Hood.Hood):
             self.doneStatus = doneStatus
             messenger.send(self.doneEvent)
 
-    
-    def enterCogdoInterior(self, requestStatus = None):
-        self.placeDoneEvent = 'cogdo-interior-done'
-        self.acceptOnce(self.placeDoneEvent, self.handleCogdoInteriorDone)
-        self.place = CogdoInterior.CogdoInterior(self, self.fsm, self.placeDoneEvent)
-        self.place.load()
-        self.place.enter(requestStatus)
-        base.cr.playGame.setPlace(self.place)
+#    def enterCogdoInterior(self, requestStatus = None):
+#        self.placeDoneEvent = 'cogdo-interior-done'
+#        self.acceptOnce(self.placeDoneEvent, self.handleCogdoInteriorDone)
+#        self.place = CogdoInterior.CogdoInterior(self, self.fsm, self.placeDoneEvent)
+#        self.place.load()
+#        self.place.enter(requestStatus)
+#        base.cr.playGame.setPlace(self.place)
 
     
-    def exitCogdoInterior(self):
-        self.ignore(self.placeDoneEvent)
-        del self.placeDoneEvent
-        self.place.exit()
-        self.place.unload()
-        self.place = None
-        base.cr.playGame.setPlace(self.place)
+#    def exitCogdoInterior(self):
+#        self.ignore(self.placeDoneEvent)
+#        del self.placeDoneEvent
+#        self.place.exit()
+#        self.place.unload()
+#        self.place = None
+#        base.cr.playGame.setPlace(self.place)
 
     
-    def handleCogdoInteriorDone(self):
-        doneStatus = self.place.getDoneStatus()
-        if self.isSameHood(doneStatus):
-            self.fsm.request('quietZone', [
-                doneStatus])
-        else:
-            self.doneStatus = doneStatus
-            messenger.send(self.doneEvent)
+#    def handleCogdoInteriorDone(self):
+#        doneStatus = self.place.getDoneStatus()
+#        if self.isSameHood(doneStatus):
+#            self.fsm.request('quietZone', [
+#                doneStatus])
+#        else:
+#            self.doneStatus = doneStatus
+#            messenger.send(self.doneEvent)
 
-    
     def enterMinigame(self, ignoredParameter = None):
         messenger.send('enterSafeZone')
         DistributedAvatar.DistributedAvatar.HpTextEnabled = 0

@@ -165,21 +165,21 @@ class ChatInputTyped(DirectObject.DirectObject):
                 
                 exec message in globals(), ChatInputTyped.ExecNamespace
                 return 'ok'
+            except:
+                exception = sys.exc_info()[0]
+                extraInfo = sys.exc_info()[1]
+                if extraInfo:
+                    return str(extraInfo)
+                else:
+                    return str(exception)
+
+        except:
             exception = sys.exc_info()[0]
             extraInfo = sys.exc_info()[1]
             if extraInfo:
                 return str(extraInfo)
             else:
                 return str(exception)
-
-        
-
-        exception = sys.exc_info()[0]
-        extraInfo = sys.exc_info()[1]
-        if extraInfo:
-            return str(extraInfo)
-        else:
-            return str(exception)
 
     
     def cancelButtonPressed(self):

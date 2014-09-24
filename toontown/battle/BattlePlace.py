@@ -107,8 +107,9 @@ class BattlePlace(Place.Place):
             
             try:
                 newZoneId = int(newZone.getIntoNode().getName())
-            self.notify.warning('Invalid floor collision node in street: %s' % newZone.getIntoNode().getName())
-            return None
+            except:
+                self.notify.warning('Invalid floor collision node in street: %s' % newZone.getIntoNode().getName())
+                return None
 
         else:
             newZoneId = newZone

@@ -346,21 +346,21 @@ class ChatInputWhiteListFrame(FSM.FSM, DirectFrame):
                 
                 exec message in globals(), ChatInputTyped.ExecNamespace
                 return 'ok'
+            except:
+                exception = sys.exc_info()[0]
+                extraInfo = sys.exc_info()[1]
+                if extraInfo:
+                    return str(extraInfo)
+                else:
+                    return str(exception)
+
+        except:
             exception = sys.exc_info()[0]
             extraInfo = sys.exc_info()[1]
             if extraInfo:
                 return str(extraInfo)
             else:
                 return str(exception)
-
-        
-
-        exception = sys.exc_info()[0]
-        extraInfo = sys.exc_info()[1]
-        if extraInfo:
-            return str(extraInfo)
-        else:
-            return str(exception)
 
     
     def applyFilter(self, keyArgs, strict = False):
@@ -382,14 +382,14 @@ class ChatInputWhiteListFrame(FSM.FSM, DirectFrame):
                     self.okayToSubmit = False
                 else:
                     self.okayToSubmit = True
-                newwords.append('\x1WLEnter\x1' + word + '\x2')
+                newwords.append('\x01WLEnter\x01' + word + '\x02')
             
             if not strict:
                 lastword = words[-1]
                 if lastword == '' or self.whiteList.isPrefix(lastword):
                     newwords[-1] = lastword
                 else:
-                    newwords[-1] = '\x1WLEnter\x1' + lastword + '\x2'
+                    newwords[-1] = '\x01WLEnter\x01' + lastword + '\x02'
             
             newtext = ' '.join(newwords)
             self.chatEntry.set(newtext)

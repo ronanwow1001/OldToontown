@@ -1,5 +1,3 @@
-# File: P (Python 2.4)
-
 from pandac.PandaModules import *
 from toontown.toonbase.ToonBaseGlobal import *
 from direct.directnotify import DirectNotifyGlobal

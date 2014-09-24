@@ -1,5 +1,3 @@
-# File: Q (Python 2.4)
-
 global curId
 import sys
 import os
@@ -93,7 +91,8 @@ def getLineOfTokens(gen):
         elif token[0] == tokenize.NAME:
             tokens.append(token[1])
         else:
-            notify.warning('Ignored token type: %s on line: %s' % (tokenize.tok_name[token[0]], token[2][0]))
+            #notify.warning('Ignored token type: %s on line: %s' % (tokenize.tok_name[token[0]], token[2][0]))
+            pass
         token = gen.next()
     return tokens
 
@@ -1189,13 +1188,8 @@ class NPCMoviePlayer(DirectObject.DirectObject):
 
 
 searchPath = DSearchPath()
-if AppRunnerGlobal.appRunner:
-    searchPath.appendDirectory(Filename.expandFrom('$TT_3_ROOT/phase_3/etc'))
-else:
-    searchPath.appendDirectory(Filename('phase_3/etc'))
-    searchPath.appendDirectory(Filename.fromOsSpecific(os.path.expandvars('$TOONTOWN/src/quest')))
-    searchPath.appendDirectory(Filename.fromOsSpecific('toontown/src/quest'))
-    searchPath.appendDirectory(Filename('.'))
+searchPath.appendDirectory(Filename('resources/phase_3/etc'))
+searchPath.appendDirectory(Filename('/phase_3/etc'))
 scriptFile = Filename('QuestScripts.txt')
 found = vfs.resolveFilename(scriptFile, searchPath)
 if not found:

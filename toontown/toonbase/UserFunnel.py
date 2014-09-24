@@ -143,10 +143,11 @@ class UserFunnel:
                     self.osMinorver = numbers[1]
                     self.osRevver = numbers[2]
                     self.osBuild = pl['ProductBuildVersion']
-                notify.info('tried plist but still got exception')
-                self.osMinorver = '0'
-                self.osRevver = '0'
-                self.osBuild = '0000'
+                except:
+                    notify.info('tried plist but still got exception')
+                    self.osMinorver = '0'
+                    self.osRevver = '0'
+                    self.osBuild = '0000'
 
             
             return None
@@ -788,7 +789,6 @@ def reportMemoryLeaks():
         
         try:
             uncompressedReport += str(s) + '&'
-        continue
         except TypeError:
             continue
         
