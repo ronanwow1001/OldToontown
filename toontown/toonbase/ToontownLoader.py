@@ -76,7 +76,7 @@ class ToontownLoader(Loader.Loader):
 
     
     def loadFont(self, *args, **kw):
-        ret = Loader.Loader.loadFont(self, *args, **args)
+        ret = Loader.Loader.loadFont(self, *args, **kw)
         self.tick()
         return ret
 

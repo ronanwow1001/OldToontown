@@ -1,12 +1,10 @@
-# File: V (Python 2.4)
-
 from direct.showbase.DirectObject import DirectObject
 from toontown.toonbase.ToontownGlobals import *
 from direct.directnotify import DirectNotifyGlobal
 from pandac.PandaModules import *
 import VineGameGlobals
 
-class VineSpider(NodePath.NodePath, DirectObject):
+class VineSpider(NodePath, DirectObject):
     RADIUS = 1.7
     
     def __init__(self):
@@ -19,7 +17,7 @@ class VineSpider(NodePath.NodePath, DirectObject):
         gameAssets = loader.loadModel('phase_4/models/minigames/vine_game')
         spider2 = gameAssets.find('**/spider_3')
         spider1 = gameAssets.find('**/spider_2')
-        seqNode = SequenceNode.SequenceNode('spider')
+        seqNode = SequenceNode('spider')
         seqNode.addChild(spider1.node())
         seqNode.addChild(spider2.node())
         seqNode.setFrameRate(2)
@@ -32,7 +30,7 @@ class VineSpider(NodePath.NodePath, DirectObject):
         regularCamMask = BitMask32.bit(0)
         self.spiderModelIcon.hide(regularCamMask)
         self.spiderModelIcon.show(VineGameGlobals.RadarCameraBitmask)
-        self.spiderModel.setScale(0.20000000000000001)
+        self.spiderModel.setScale(0.2)
         self.spiderModelIcon.setScale(0.75)
         self.setPos(-100, 0, 0)
         center = Point3(0, 0, 0)

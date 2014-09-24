@@ -1,20 +1,12 @@
-# File: M (Python 2.4)
-
 from pandac.PandaModules import *
-from direct.showbase import GarbageReport, ContainerReport, MessengerLeakDetector
 from direct.distributed import DistributedObject
 from direct.directnotify import DirectNotifyGlobal
-from direct.showbase.InputStateGlobal import inputState
-from direct.showbase.ObjectCount import ObjectCount
 from direct.task import Task
 from direct.task.TaskProfiler import TaskProfiler
 from otp.avatar import Avatar
 import string
-from direct.showbase import PythonUtil
-from direct.showbase.PythonUtil import Functor, DelayedCall, ScratchPad
 from otp.otpbase import OTPGlobals
 from direct.distributed.ClockDelta import *
-from direct.showutil.TexViewer import TexViewer
 
 class MagicWordManager(DistributedObject.DistributedObject):
     notify = DirectNotifyGlobal.directNotify.newCategory('MagicWordManager')

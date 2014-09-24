@@ -8,6 +8,9 @@ import ToontownLoader
 from direct.gui import DirectGuiGlobals
 from direct.gui.DirectGui import *
 from pandac.PandaModules import *
+from otp.nametag.ChatBalloon import ChatBalloon
+from otp.nametag import NametagGlobals
+from otp.margins.MarginManager import MarginManager
 import sys
 import os
 import math
@@ -309,11 +312,11 @@ class ToonBase(OTPBase.OTPBase):
             self.notify.info('Using gameServer from launcher: %s ' % gameServer)
         else:
             gameServer = 'localhost'
-        serverPort = base.config.GetInt('server-port', 6667)
+        serverPort = base.config.GetInt('server-port', 7198)
         serverList = []
         for name in gameServer.split(';'):
             url = URLSpec(name, 1)
-            url.setScheme('s')
+            url.setScheme('')
             if not url.hasPort():
                 url.setPort(serverPort)
             

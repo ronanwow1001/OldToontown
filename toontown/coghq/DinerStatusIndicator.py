@@ -5,7 +5,7 @@ from direct.fsm import FSM
 from direct.gui.DirectGui import DirectFrame, DGG
 from direct.interval.IntervalGlobal import LerpScaleInterval, LerpColorScaleInterval, Parallel, Sequence, Wait
 
-class DinerStatusIndicator(NodePath.NodePath, FSM.FSM):
+class DinerStatusIndicator(NodePath, FSM.FSM):
     
     def __init__(self, parent, pos = None, scale = None):
         NodePath.NodePath.__init__(self, 'DinerStatusIndicator')

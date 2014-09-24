@@ -430,10 +430,11 @@ class DistributedBattleBase(DistributedNode.DistributedNode, BattleBase):
                 
                 try:
                     pass
-                suit.battleTrap = NO_TRAP
-                suit.battleTrapProp = None
-                self.notify.debug('496 suit.battleTrapProp = None')
-                suit.battleTrapIsFresh = 0
+                except:
+                    suit.battleTrap = NO_TRAP
+                    suit.battleTrapProp = None
+                    self.notify.debug('496 suit.battleTrapProp = None')
+                    suit.battleTrapIsFresh = 0
 
                 continue
             self.notify.warning('setMembers() - no suit in repository: %d' % s)

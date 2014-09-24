@@ -95,7 +95,6 @@ from toontown.coghq import DistributedCogHQDoor/AI
 from toontown.coghq import DistributedSellbotHQDoor/AI
 from toontown.toon import DistributedNPCToonBase/AI
 from toontown.toon import DistributedNPCToon/AI
-from toontown.toon import DistributedNPCSnowballGiver/AI
 from toontown.toon import DistributedNPCSpecialQuestGiver/AI
 from toontown.toon import DistributedNPCFlippyInToonHall/AI
 from toontown.toon import DistributedNPCScientist/AI
@@ -167,9 +166,7 @@ from toontown.coghq import DistributedSinkingPlatform/AI
 from toontown.suit import DistributedGoon/AI
 from toontown.suit import DistributedGridGoon/AI
 from toontown.coghq import BattleBlocker/AI
-from toontown.ai import DistributedAprilToonsMgr/AI
 from toontown.ai import DistributedBlackCatMgr/AI
-from toontown.ai import DistributedPolarBearMgr/AI
 from toontown.ai import DistributedPolarPlaceEffectMgr/AI
 from toontown.ai import DistributedGreenToonEffectMgr/AI
 from toontown.ai import DistributedResistanceEmoteMgr/AI
@@ -279,7 +276,6 @@ from toontown.uberdog.DistributedPartyManager/AI/UD import DistributedPartyManag
 from toontown.rpc.AwardManager/UD import AwardManager/UD
 from toontown.uberdog.DistributedCpuInfoMgr/AI/UD import DistributedCpuInfoMgr/AI/UD
 from toontown.uberdog.DistributedSecurityMgr/AI/UD import DistributedSecurityMgr/AI/UD
-from toontown.rpc.RATManager/UD import RATManager/UD
 from toontown.uberdog.DistributedInGameNewsMgr/AI/UD import DistributedInGameNewsMgr/AI/UD
 from toontown.uberdog.DistributedWhitelistMgr/AI/UD import DistributedWhitelistMgr/AI/UD
 from toontown.coderedemption.TTCodeRedemptionMgr/AI/UD import TTCodeRedemptionMgr/AI/UD
@@ -290,20 +286,21 @@ from toontown.ai.DistributedHydrantZeroMgr/AI import DistributedHydrantZeroMgr/A
 from toontown.ai.DistributedMailboxZeroMgr/AI import DistributedMailboxZeroMgr/AI
 from toontown.ai.DistributedTrashcanZeroMgr/AI import DistributedTrashcanZeroMgr/AI
 from toontown.ai import DistributedSillyMeterMgr/AI
-from toontown.cogdominium import DistributedCogdoInterior/AI
-from toontown.cogdominium import DistributedCogdoBattleBldg/AI
-from toontown.cogdominium import DistributedCogdoElevatorExt/AI
-from toontown.cogdominium import DistributedCogdoElevatorInt/AI
-from toontown.cogdominium import DistributedCogdoBarrel/AI
-from toontown.cogdominium import DistCogdoGame/AI
-from toontown.cogdominium import DistCogdoLevelGame/AI
-from toontown.cogdominium import DistCogdoBoardroomGame/AI
-from toontown.cogdominium import DistCogdoCraneGame/AI
-from toontown.cogdominium import DistCogdoMazeGame/AI
-from toontown.cogdominium import DistCogdoFlyingGame/AI
-from toontown.cogdominium import DistCogdoCrane/AI
-from toontown.cogdominium import DistCogdoCraneMoneyBag/AI
-from toontown.cogdominium import DistCogdoCraneCog/AI
+// no field offices here
+//from toontown.cogdominium import DistributedCogdoInterior/AI
+//from toontown.cogdominium import DistributedCogdoBattleBldg/AI
+//from toontown.cogdominium import DistributedCogdoElevatorExt/AI
+//from toontown.cogdominium import DistributedCogdoElevatorInt/AI
+//from toontown.cogdominium import DistributedCogdoBarrel/AI
+//from toontown.cogdominium import DistCogdoGame/AI
+//from toontown.cogdominium import DistCogdoLevelGame/AI
+//from toontown.cogdominium import DistCogdoBoardroomGame/AI
+//from toontown.cogdominium import DistCogdoCraneGame/AI
+//from toontown.cogdominium import DistCogdoMazeGame/AI
+//from toontown.cogdominium import DistCogdoFlyingGame/AI
+//from toontown.cogdominium import DistCogdoCrane/AI
+//from toontown.cogdominium import DistCogdoCraneMoneyBag/AI
+//from toontown.cogdominium import DistCogdoCraneCog/AI
 from toontown.parties.GlobalPartyManager/AI/UD import GlobalPartyManager/AI/UD
 
 struct GiftItem {
@@ -1542,88 +1539,88 @@ dclass DistributedSuitInterior : DistributedObject {
   reserveJoinDone() airecv clsend;
 };
 
-dclass DistributedCogdoBarrel : DistributedObject {
-  requestGrab() airecv clsend;
-  setIndex(uint32) required broadcast ram;
-  setState(uint32) required broadcast ram;
-  setGrab(uint32) broadcast ram;
-  setReject() broadcast;
-};
+//dclass DistributedCogdoBarrel : DistributedObject {
+//  requestGrab() airecv clsend;
+//  setIndex(uint32) required broadcast ram;
+//  setState(uint32) required broadcast ram;
+//  setGrab(uint32) broadcast ram;
+//  setReject() broadcast;
+//};
 
-dclass DistributedCogdoInterior : DistributedObject {
-  setZoneId(uint32) required broadcast ram;
-  setExtZoneId(uint32) required broadcast ram;
-  setDistBldgDoId(uint32) required broadcast ram;
-  setNumFloors(int8) required broadcast ram;
-  setShopOwnerNpcId(uint32) required broadcast ram;
-  setSOSNpcId(uint32) broadcast ram;
-  setFOType(int8) broadcast ram;
-  setToons(uint32[], uint16) broadcast ram;
-  setSuits(uint32[], uint32[], uint16[]) broadcast ram;
-  setState(string, int16) required broadcast ram;
-  setAvatarJoined() airecv clsend;
-  elevatorDone() airecv clsend;
-  reserveJoinDone() airecv clsend;
-  toonLeftBarrelRoom() airecv clsend;
-  toonBarrelRoomIntroDone() airecv clsend;
-  setBarrelRoomReward(uint32 [], uint8 []) broadcast;
-  toonBarrelRoomRewardDone() airecv clsend;
-};
+//dclass DistributedCogdoInterior : DistributedObject {
+//  setZoneId(uint32) required broadcast ram;
+//  setExtZoneId(uint32) required broadcast ram;
+//  setDistBldgDoId(uint32) required broadcast ram;
+//  setNumFloors(int8) required broadcast ram;
+//  setShopOwnerNpcId(uint32) required broadcast ram;
+//  setSOSNpcId(uint32) broadcast ram;
+//  setFOType(int8) broadcast ram;
+//  setToons(uint32[], uint16) broadcast ram;
+//  setSuits(uint32[], uint32[], uint16[]) broadcast ram;
+//  setState(string, int16) required broadcast ram;
+//  setAvatarJoined() airecv clsend;
+//  elevatorDone() airecv clsend;
+//  reserveJoinDone() airecv clsend;
+//  toonLeftBarrelRoom() airecv clsend;
+//  toonBarrelRoomIntroDone() airecv clsend;
+//  setBarrelRoomReward(uint32 [], uint8 []) broadcast;
+//  toonBarrelRoomRewardDone() airecv clsend;
+//};
 
-dclass DistributedCogdoBattleBldg : DistributedBattleBldg {
-};
+//dclass DistributedCogdoBattleBldg : DistributedBattleBldg {
+//};
 
-dclass DistCogdoGame : DistributedObject {
-  setInteriorId(uint32) required broadcast ram;
-  setExteriorZone(uint32) broadcast ram required;
-  setDifficultyOverrides(int32, int32) broadcast ram required;
-  setVisible() broadcast;
-  setIntroStart() broadcast;
-  setToonSad(uint32) broadcast;
-  setToonDisconnect(uint32) broadcast;
-  setAvatarReady() airecv clsend;
-  setGameStart(int16) broadcast;
-  setGameFinish(int16) broadcast;
-};
+//dclass DistCogdoGame : DistributedObject {
+//  setInteriorId(uint32) required broadcast ram;
+//  setExteriorZone(uint32) broadcast ram required;
+//  setDifficultyOverrides(int32, int32) broadcast ram required;
+//  setVisible() broadcast;
+//  setIntroStart() broadcast;
+//  setToonSad(uint32) broadcast;
+//  setToonDisconnect(uint32) broadcast;
+//  setAvatarReady() airecv clsend;
+//  setGameStart(int16) broadcast;
+//  setGameFinish(int16) broadcast;
+//};
 
-dclass DistCogdoLevelGame : DistCogdoGame, DistributedLevel {
-};
+//dclass DistCogdoLevelGame : DistCogdoGame, DistributedLevel {
+//};
 
-dclass DistCogdoMazeGame : DistCogdoGame {
-  requestAction(uint8, uint32) airecv clsend;
-  doAction(uint8, uint32, int16) broadcast;
-  setNumSuits(uint8 [3]) required broadcast;
-  requestUseGag(int16/10, int16/10, int16/10, int16) clsend airecv;
-  toonUsedGag(uint32, int16/10, int16/10, int16/10, int16) broadcast;
-  requestSuitHitByGag(uint8, uint8) clsend airecv;
-  suitHitByGag(uint32, uint8, uint8) broadcast;
-  requestHitBySuit(uint8, uint8, int16) clsend airecv;
-  toonHitBySuit(uint32, uint8, uint8, int16) broadcast;
-  requestHitByDrop() clsend airecv;
-  toonHitByDrop(uint32) broadcast;
-  requestPickUp(uint8) clsend airecv;
-  pickUp(uint32, uint8, int16) broadcast;
-  requestGag(uint8) clsend airecv;
-  hasGag(uint32, int16) broadcast;
-};
+//dclass DistCogdoMazeGame : DistCogdoGame {
+//  requestAction(uint8, uint32) airecv clsend;
+//  doAction(uint8, uint32, int16) broadcast;
+//  setNumSuits(uint8 [3]) required broadcast;
+//  requestUseGag(int16/10, int16/10, int16/10, int16) clsend //airecv;
+//  toonUsedGag(uint32, int16/10, int16/10, int16/10, int16) //broadcast;
+//  requestSuitHitByGag(uint8, uint8) clsend airecv;
+//  suitHitByGag(uint32, uint8, uint8) broadcast;
+//  requestHitBySuit(uint8, uint8, int16) clsend airecv;
+//  toonHitBySuit(uint32, uint8, uint8, int16) broadcast;
+//  requestHitByDrop() clsend airecv;
+//  toonHitByDrop(uint32) broadcast;
+//  requestPickUp(uint8) clsend airecv;
+//  pickUp(uint32, uint8, int16) broadcast;
+//  requestGag(uint8) clsend airecv;
+//  hasGag(uint32, int16) broadcast;
+//};
 
-dclass DistCogdoFlyingGame : DistCogdoGame {
-  requestAction(uint8, uint8) airecv clsend;
-  requestPickUp(uint16, uint8) airecv clsend;
-  pickUp(uint32, uint16, int16) broadcast;
-  debuffPowerup(uint32, uint16, int16) broadcast;
-  doAction(uint8, uint32) broadcast;
-  eagleExitCooldown(uint32, int16) broadcast;
-  toonSetAsEagleTarget(uint32, uint8, int16) broadcast;
-  toonClearAsEagleTarget(uint32, uint8, int16) broadcast;
-  toonDied(uint32, int32) broadcast;
-  toonSpawn(uint32, int32) broadcast;
-  toonSetBlades(uint32, int32) broadcast;
-  toonBladeLost(uint32) broadcast;
-};
+//dclass DistCogdoFlyingGame : DistCogdoGame {
+//  requestAction(uint8, uint8) airecv clsend;
+//  requestPickUp(uint16, uint8) airecv clsend;
+//  pickUp(uint32, uint16, int16) broadcast;
+//  debuffPowerup(uint32, uint16, int16) broadcast;
+//  doAction(uint8, uint32) broadcast;
+//  eagleExitCooldown(uint32, int16) broadcast;
+//  toonSetAsEagleTarget(uint32, uint8, int16) broadcast;
+//  toonClearAsEagleTarget(uint32, uint8, int16) broadcast;
+//  toonDied(uint32, int32) broadcast;
+//  toonSpawn(uint32, int32) broadcast;
+//  toonSetBlades(uint32, int32) broadcast;
+//  toonBladeLost(uint32) broadcast;
+//};
 
-dclass DistCogdoBoardroomGame : DistCogdoLevelGame {
-};
+//dclass DistCogdoBoardroomGame : DistCogdoLevelGame {
+//};
 
 dclass DistributedHQInterior : DistributedObject {
   setZoneIdAndBlock(uint32, uint16) required broadcast ram;
@@ -1686,10 +1683,6 @@ dclass DistributedNPCToon : DistributedNPCToonBase {
   setMovieDone() airecv clsend;
   chooseQuest(uint16) airecv clsend;
   chooseTrack(int8) airecv clsend;
-};
-
-dclass DistributedNPCSnowballGiver : DistributedNPCToonBase {
-  gaveSnowballs(uint32, uint32, uint8) broadcast ram;
 };
 
 dclass DistributedNPCSpecialQuestGiver : DistributedNPCToonBase {
@@ -1839,15 +1832,15 @@ dclass DistributedMintElevatorExt : DistributedElevatorExt {
   setMintInteriorZoneForce(uint32);
 };
 
-dclass DistributedCogdoElevatorExt : DistributedElevatorExt {
-};
+//dclass DistributedCogdoElevatorExt : DistributedElevatorExt {
+//};
 
 dclass DistributedLawOfficeElevatorInt : DistributedElevatorFloor {
   setLawOfficeInteriorZone(uint32);
 };
 
-dclass DistributedCogdoElevatorInt : DistributedElevatorInt {
-};
+//dclass DistributedCogdoElevatorInt : DistributedElevatorInt {
+//};
 
 dclass DistributedBossElevator : DistributedElevatorExt {
   setBossOfficeZone(uint32);
@@ -2300,20 +2293,9 @@ dclass DistributedPetProxy : DistributedPet {
   setDominantMood(string) broadcast ram;
 };
 
-dclass DistributedAprilToonsMgr : DistributedObject {
-  setEventActive(uint8 eventId, bool) broadcast;
-  requestEventsList() clsend airecv;
-  requestEventsListResp(uint8 []);
-};
-
 dclass DistributedBlackCatMgr : DistributedObject {
   doBlackCatTransformation(uint32 avId) broadcast;
   requestBlackCatTransformation() airecv clsend;
-};
-
-dclass DistributedPolarBearMgr : DistributedObject {
-  doPolarBearTransformation(uint32 avId) broadcast;
-  requestPolarBearTransformation() airecv clsend;
 };
 
 dclass DistributedPolarPlaceEffectMgr : DistributedObject {
@@ -3119,9 +3101,6 @@ dclass ClientServicesManager : DistributedObjectGlobal {
   deleteAvatar(uint32 avId) clsend;
 
   chooseAvatar(uint32 avId) clsend;
-};
-
-dclass RATManager : DistributedObjectGlobal {
 };
 
 dclass AwardManager : DistributedObjectGlobal {

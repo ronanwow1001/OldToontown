@@ -108,15 +108,12 @@ del version
 base.loader = base.loader
 __builtin__.loader = base.loader
 autoRun = ConfigVariableBool('toontown-auto-run', 1)
-if autoRun and launcher.isDummy():
-    if not Thread.isTrueThreads() or __name__ == '__main__':
-        try:
-            run()
-        except SystemExit:
-            raise 
-        except:
-            from direct.showbase import PythonUtil
-            print PythonUtil.describeException()
-            raise 
-        
-
+if autoRun:
+    try:
+        run()
+    except SystemExit:
+        raise
+    except:
+        from direct.showbase import PythonUtil
+        print PythonUtil.describeException()
+        raise
