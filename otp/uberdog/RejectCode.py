@@ -1,4 +1,3 @@
-# File: R (Python 2.4)
 
 
 class RejectCode:
@@ -77,4 +76,3 @@ class RejectCode:
     NOT_YOUR_FRIENDS_LIST = 60009
     ALREADY_FRIENDS_WITH_SELF = 60010
     MAY_NOT_OPEN_INVITE = 60011
-

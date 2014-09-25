@@ -40,15 +40,8 @@ class NameGenerator:
         self.lastSuffixes = []
         self.nameDictionary = { }
         searchPath = DSearchPath()
-        if AppRunnerGlobal.appRunner:
-            searchPath.appendDirectory(Filename.expandFrom('$TT_3_ROOT/phase_3/etc'))
-        else:
-            searchPath.appendDirectory(Filename('phase_3/etc'))
-            if not os.path.expandvars('$TOONTOWN'):
-                pass
-            base = './toontown'
-            searchPath.appendDirectory(Filename.fromOsSpecific(os.path.expandvars(base + '/src/configfiles')))
-            searchPath.appendDirectory(Filename('.'))
+        searchPath.appendDirectory(Filename('resources/phase_3/etc'))
+        searchPath.appendDirectory(Filename('.'))
         filename = Filename(TTLocalizer.NameShopNameMaster)
         found = vfs.resolveFilename(filename, searchPath)
         if not found:

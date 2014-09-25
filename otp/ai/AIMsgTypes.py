@@ -75,9 +75,6 @@ AIMsgName2Id = {
     'DBSERVER_SET_STORED_VALUES': 1014,
     'SERVER_PING': 5002 }
 AIMsgId2Names = invertDictLossless(AIMsgName2Id)
-if not isClient():
-    print 'EXECWARNING AIMsgTypes: %s' % AIMsgName2Id
-    printStack()
 
 for (name, value) in AIMsgName2Id.items():
     exec '%s = %s' % (name, value)

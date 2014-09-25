@@ -8,9 +8,6 @@ TTAIMsgName2Id = {
     'IN_GAME_NEWS_MANAGER_UD_TO_ALL_AI': 1043,
     'WHITELIST_MANAGER_UD_TO_ALL_AI': 1044 }
 TTAIMsgId2Names = invertDictLossless(TTAIMsgName2Id)
-if not isClient():
-    print 'EXECWARNING ToontownAIMsgTypes: %s' % TTAIMsgName2Id
-    printStack()
 
 for (name, value) in TTAIMsgName2Id.items():
     exec '%s = %s' % (name, value)

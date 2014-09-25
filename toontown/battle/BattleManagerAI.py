@@ -1,0 +1,1 @@
+class BattleManagerAI(): pass

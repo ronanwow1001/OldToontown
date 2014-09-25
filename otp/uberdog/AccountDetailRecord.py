@@ -1,9 +1,7 @@
-# File: A (Python 2.4)
-
 from otp.otpbase import OTPGlobals
 
 class SubDetailRecord:
-    
+
     def __init__(self):
         self.subId = 0
         self.subOwnerId = 0
@@ -15,7 +13,6 @@ class SubDetailRecord:
         self.subNumConcur = 0
         self.subFounder = 0
 
-    
     def __str__(self):
         s = ''
         s += '========== Sub %d ==========\n' % self.subId
@@ -31,9 +28,8 @@ class SubDetailRecord:
         return s
 
 
-
 class AccountDetailRecord:
-    
+
     def __init__(self):
         self.openChatEnabled = False
         self.createFriendsWithChat = False
@@ -47,11 +43,10 @@ class AccountDetailRecord:
         self.numFamilyMembers = 0
         self.familyMembers = []
         self.numSubs = 0
-        self.subDetails = { }
+        self.subDetails = {}
         self.maxAvatarSlots = 0
         self.WLChatEnabled = False
 
-    
     def getMaxNumAvatars(self, subId):
         subDetails = self.subDetails.get(subId)
         if subDetails:
@@ -59,13 +54,9 @@ class AccountDetailRecord:
         else:
             return 0
 
-    
     def canOpenChatAndNotGetBooted(self):
-        if not self.openChatEnabled:
-            pass
-        return self.createFriendsWithChat
+        return self.openChatEnabled or self.createFriendsWithChat
 
-    
     def __str__(self):
         s = '========== Account %s ==========\n' % self.playerAccountId
         s += 'OpenChatEnabled: %s\n' % self.openChatEnabled
@@ -84,8 +75,6 @@ class AccountDetailRecord:
         s += 'NumSubs: %s\n' % self.numSubs
         for subDetails in self.subDetails.values():
             s += str(subDetails)
-        
+
         s += '================================\n'
         return s
-
-

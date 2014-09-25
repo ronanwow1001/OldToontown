@@ -120,8 +120,8 @@ class DatabaseObject:
                     
                     try:
                         del self.values[fields[i]]
-
-                    continue
+                    except:
+                        continue
                 self.values[fields[i]] = PyDatagram(values[i])
             
             self.notify.info('got data for %d' % self.doId)
