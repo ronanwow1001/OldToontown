@@ -24,6 +24,7 @@ class DisplayOptions:
 
     
     def loadFromSettings(self):
+        return
         Settings.readSettings()
         mode = not Settings.getWindowedMode()
         music = Settings.getMusic()

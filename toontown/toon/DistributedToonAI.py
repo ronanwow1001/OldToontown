@@ -1,5 +1,3 @@
-# File: D (Python 2.4)
-
 from otp.ai.AIBaseGlobal import *
 from pandac.PandaModules import *
 from otp.otpbase import OTPGlobals
@@ -5790,18 +5788,12 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         if DistributedToonAI.pingedAvs.has_key(self.doId):
             del DistributedToonAI.pingedAvs[self.doId]
         
-
-    
     def startPing(self):
-        DistributedNPCToonBaseAI = DistributedNPCToonBaseAI
-        import toontown.toon.DistributedNPCToonBaseAI
+        from toontown.toon.DistributedNPCToonBaseAI import DistributedNPCToonBaseAI
         if isinstance(self, DistributedNPCToonBaseAI):
-            return None
-        
+            return
         delay = simbase.config.GetInt('client-ping-period', 60)
-        taskMgr.doMethodLater(delay, self.requestPing, 'requestping-' + str(self.doId), extraArgs = [
-            self.doId])
-
+        taskMgr.doMethodLater(delay, self.requestPing, 'requestping-' + str(self.doId), extraArgs=[self.doId])
     
     def stopPing(self):
         taskMgr.remove('requestping-' + str(self.doId))
