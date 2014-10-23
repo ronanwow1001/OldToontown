@@ -1,11 +1,9 @@
-global DogDialogueArray, CatDialogueArray, HorseDialogueArray, RabbitDialogueArray, MouseDialogueArray, DuckDialogueArray, MonkeyDialogueArray, BearDialogueArray, PigDialogueArray, Preloaded
 from otp.avatar import Avatar
 from otp.avatar.Avatar import teleportNotify
 import ToonDNA
 from direct.task.Task import Task
 from toontown.suit import SuitDNA
 from direct.actor import Actor
-import string
 from ToonHead import *
 from pandac.PandaModules import *
 from direct.interval.IntervalGlobal import *
@@ -24,6 +22,7 @@ from otp.otpbase import OTPGlobals
 from toontown.effects import DustCloud
 from direct.showbase.PythonUtil import Functor
 from toontown.distributed import DelayDelete
+from otp.nametag.NametagConstants import *
 import AccessoryGlobals
 import types
 
@@ -225,41 +224,32 @@ def loadPhaseAnims(phaseStr = 'phase_3', loadFlag = 1):
     for key in LegDict.keys():
         for anim in animList:
             if loadFlag:
-                continue
+                pass
             if LegsAnimDict[key].has_key(anim[0]):
                 if base.localAvatar.style.legs == key:
                     base.localAvatar.unloadAnims([
                         anim[0]], 'legs', None)
-                
-            base.localAvatar.style.legs == key
-        
-    
+
     for key in TorsoDict.keys():
         for anim in animList:
             if loadFlag:
-                continue
+                pass
             if TorsoAnimDict[key].has_key(anim[0]):
                 if base.localAvatar.style.torso == key:
                     base.localAvatar.unloadAnims([
                         anim[0]], 'torso', None)
-                
-            base.localAvatar.style.torso == key
-        
-    
+
     for key in HeadDict.keys():
         if string.find(key, 'd') >= 0:
             for anim in animList:
                 if loadFlag:
-                    continue
+                    pass
                 if HeadAnimDict[key].has_key(anim[0]):
                     if base.localAvatar.style.head == key:
                         base.localAvatar.unloadAnims([
                             anim[0]], 'head', None)
-                    
-                base.localAvatar.style.head == key
-            
-    
 
+    return
 
 def compileGlobalAnimList():
     phaseList = [
@@ -382,8 +372,8 @@ class Toon(Avatar.Avatar, ToonHead):
         self.emoteTrack = None
         self.emote = None
         self.stunTrack = None
-        self._Toon__bookActors = []
-        self._Toon__holeActors = []
+        self.__bookActors = []
+        self.__holeActors = []
         self.holeClipPath = None
         self.wake = None
         self.lastWakeTime = 0
@@ -391,7 +381,7 @@ class Toon(Avatar.Avatar, ToonHead):
         self.numPies = 0
         self.pieType = 0
         self.pieModel = None
-        self._Toon__pieModelType = None
+        self.__pieModelType = None
         self.pieScale = 1.0
         self.hatNodes = []
         self.glassesNodes = []
@@ -502,14 +492,14 @@ class Toon(Avatar.Avatar, ToonHead):
             self.hipsParts = None
             self.legsParts = None
             del self.animFSM
-            for bookActor in self._Toon__bookActors:
+            for bookActor in self.__bookActors:
                 bookActor.cleanup()
             
-            del self._Toon__bookActors
-            for holeActor in self._Toon__holeActors:
+            del self.__bookActors
+            for holeActor in self.__holeActors:
                 holeActor.cleanup()
             
-            del self._Toon__holeActors
+            del self.__holeActors
             self.soundTeleport = None
             self.motion.delete()
             self.motion = None
@@ -532,7 +522,7 @@ class Toon(Avatar.Avatar, ToonHead):
             self.swapToonLegs(newDNA.legs)
         
         self.swapToonColor(newDNA)
-        self._Toon__swapToonClothes(newDNA)
+        self.__swapToonClothes(newDNA)
 
     
     def setDNAString(self, dnaString):
@@ -661,45 +651,45 @@ class Toon(Avatar.Avatar, ToonHead):
 
     
     def getBookActors(self):
-        if self._Toon__bookActors:
-            return self._Toon__bookActors
+        if self.__bookActors:
+            return self.__bookActors
         
         bookActor = Actor.Actor('phase_3.5/models/props/book-mod', {
             'book': 'phase_3.5/models/props/book-chan' })
         bookActor2 = Actor.Actor(other = bookActor)
         bookActor3 = Actor.Actor(other = bookActor)
-        self._Toon__bookActors = [
+        self.__bookActors = [
             bookActor,
             bookActor2,
             bookActor3]
         hands = self.getRightHands()
-        for (bookActor, hand) in zip(self._Toon__bookActors, hands):
+        for (bookActor, hand) in zip(self.__bookActors, hands):
             bookActor.reparentTo(hand)
             bookActor.hide()
         
-        return self._Toon__bookActors
+        return self.__bookActors
 
     
     def getHoleActors(self):
-        if self._Toon__holeActors:
-            return self._Toon__holeActors
+        if self.__holeActors:
+            return self.__holeActors
         
         holeActor = Actor.Actor('phase_3.5/models/props/portal-mod', {
             'hole': 'phase_3.5/models/props/portal-chan' })
         holeActor2 = Actor.Actor(other = holeActor)
         holeActor3 = Actor.Actor(other = holeActor)
-        self._Toon__holeActors = [
+        self.__holeActors = [
             holeActor,
             holeActor2,
             holeActor3]
-        for ha in self._Toon__holeActors:
+        for ha in self.__holeActors:
             if hasattr(self, 'uniqueName'):
                 holeName = self.uniqueName('toon-portal')
             else:
                 holeName = 'toon-portal'
             ha.setName(holeName)
         
-        return self._Toon__holeActors
+        return self.__holeActors
 
     
     def rescaleToon(self):
@@ -873,7 +863,7 @@ class Toon(Avatar.Avatar, ToonHead):
         self.generateToonColor()
 
     
-    def _Toon__swapToonClothes(self, dna):
+    def __swapToonClothes(self, dna):
         self.setStyle(dna)
         self.generateToonClothes(fromNet = 1)
 
@@ -2148,22 +2138,22 @@ class Toon(Avatar.Avatar, ToonHead):
         self.setChatAbsolute(SLEEP_STRING, CFThought)
         if self == base.localAvatar:
             print 'adding timeout task'
-            taskMgr.doMethodLater(self.afkTimeout, self._Toon__handleAfkTimeout, self.uniqueName('afkTimeout'))
+            taskMgr.doMethodLater(self.afkTimeout, self.__handleAfkTimeout, self.uniqueName('afkTimeout'))
         
         self.setActiveShadow(0)
 
     
-    def _Toon__handleAfkTimeout(self, task):
+    def __handleAfkTimeout(self, task):
         print 'handling timeout'
         self.ignore('wakeup')
         self.takeOffSuit()
         base.cr.playGame.getPlace().fsm.request('final')
-        self.b_setAnimState('TeleportOut', 1, self._Toon__handleAfkExitTeleport, [
+        self.b_setAnimState('TeleportOut', 1, self.__handleAfkExitTeleport, [
             0])
         return Task.done
 
     
-    def _Toon__handleAfkExitTeleport(self, requestStatus):
+    def __handleAfkExitTeleport(self, requestStatus):
         self.notify.info('closing shard...')
         base.cr.gameFSM.request('closeShard', [
             'afkTimeout'])
@@ -2239,7 +2229,7 @@ class Toon(Avatar.Avatar, ToonHead):
         (self.emoteTrack, duration) = Emote.globalEmote.doEmote(self, emoteIndex, ts)
 
     
-    def _Toon__returnToLastAnim(self, task):
+    def __returnToLastAnim(self, task):
         if self.playingAnim:
             self.loop(self.playingAnim)
         elif self.hp > 0:
@@ -2249,7 +2239,7 @@ class Toon(Avatar.Avatar, ToonHead):
         return Task.done
 
     
-    def _Toon__finishEmote(self, task):
+    def __finishEmote(self, task):
         if self.isLocal():
             if self.hp > 0:
                 self.b_setAnimState('Happy')
@@ -2368,11 +2358,11 @@ class Toon(Avatar.Avatar, ToonHead):
             oldEffect = self.cheesyEffect
             self.cheesyEffect = effect
             if oldEffect == ToontownGlobals.CENormal:
-                self.effectTrack = self._Toon__doCheesyEffect(effect, lerpTime)
+                self.effectTrack = self.__doCheesyEffect(effect, lerpTime)
             elif effect == ToontownGlobals.CENormal:
-                self.effectTrack = self._Toon__undoCheesyEffect(oldEffect, lerpTime)
+                self.effectTrack = self.__undoCheesyEffect(oldEffect, lerpTime)
             else:
-                self.effectTrack = Sequence(self._Toon__undoCheesyEffect(oldEffect, lerpTime / 2.0), self._Toon__doCheesyEffect(effect, lerpTime / 2.0))
+                self.effectTrack = Sequence(self.__undoCheesyEffect(oldEffect, lerpTime / 2.0), self.__doCheesyEffect(effect, lerpTime / 2.0))
             self.effectTrack.start()
         
 
@@ -2383,7 +2373,7 @@ class Toon(Avatar.Avatar, ToonHead):
             self.effectTrack = None
         
         effect = self.cheesyEffect
-        self.effectTrack = Sequence(self._Toon__undoCheesyEffect(effect, 0), self._Toon__doCheesyEffect(effect, lerpTime))
+        self.effectTrack = Sequence(self__undoCheesyEffect(effect, 0), self.__doCheesyEffect(effect, lerpTime))
         self.effectTrack.start()
 
     
@@ -2395,7 +2385,7 @@ class Toon(Avatar.Avatar, ToonHead):
         
 
     
-    def _Toon__doHeadScale(self, scale, lerpTime):
+    def __doHeadScale(self, scale, lerpTime):
         if scale == None:
             scale = ToontownGlobals.toonHeadScales[self.style.getAnimal()]
         
@@ -2407,7 +2397,7 @@ class Toon(Avatar.Avatar, ToonHead):
         return track
 
     
-    def _Toon__doLegsScale(self, scale, lerpTime):
+    def __doLegsScale(self, scale, lerpTime):
         if scale == None:
             scale = 1
             invScale = 1
@@ -2423,7 +2413,7 @@ class Toon(Avatar.Avatar, ToonHead):
         return track
 
     
-    def _Toon__doToonScale(self, scale, lerpTime):
+    def __doToonScale(self, scale, lerpTime):
         if scale == None:
             scale = 1
         
@@ -2460,7 +2450,7 @@ class Toon(Avatar.Avatar, ToonHead):
         return track
 
     
-    def _Toon__doPumpkinHeadSwitch(self, lerpTime, toPumpkin):
+    def __doPumpkinHeadSwitch(self, lerpTime, toPumpkin):
         node = self.getGeomNode()
         
         def getDustCloudIval():
@@ -2518,7 +2508,7 @@ class Toon(Avatar.Avatar, ToonHead):
         return track
 
     
-    def _Toon__doSnowManHeadSwitch(self, lerpTime, toSnowMan):
+    def __doSnowManHeadSwitch(self, lerpTime, toSnowMan):
         node = self.getGeomNode()
         
         def getDustCloudIval():
@@ -2582,7 +2572,7 @@ class Toon(Avatar.Avatar, ToonHead):
         return track
 
     
-    def _Toon__doGreenToon(self, lerpTime, toGreen):
+    def __doGreenToon(self, lerpTime, toGreen):
         track = Sequence()
         greenTrack = Parallel()
         
@@ -2603,20 +2593,20 @@ class Toon(Avatar.Avatar, ToonHead):
             skinGreen = VBase4(76 / 255.0, 240 / 255.0, 84 / 255.0, 1)
             muzzleGreen = VBase4(4 / 255.0, 205 / 255.0, 90 / 255.0, 1)
             gloveGreen = VBase4(14 / 255.0, 173 / 255.0, 40 / 255.0, 1)
-            greenTrack.append(self._Toon__colorToonSkin(skinGreen, lerpTime))
-            greenTrack.append(self._Toon__colorToonEars(skinGreen, muzzleGreen, lerpTime))
-            greenTrack.append(self._Toon__colorScaleToonMuzzle(muzzleGreen, lerpTime))
-            greenTrack.append(self._Toon__colorToonGloves(gloveGreen, lerpTime))
+            greenTrack.append(self.__colorToonSkin(skinGreen, lerpTime))
+            greenTrack.append(self.__colorToonEars(skinGreen, muzzleGreen, lerpTime))
+            greenTrack.append(self.__colorScaleToonMuzzle(muzzleGreen, lerpTime))
+            greenTrack.append(self.__colorToonGloves(gloveGreen, lerpTime))
         else:
-            greenTrack.append(self._Toon__colorToonSkin(None, lerpTime))
-            greenTrack.append(self._Toon__colorToonEars(None, None, lerpTime))
-            greenTrack.append(self._Toon__colorScaleToonMuzzle(None, lerpTime))
-            greenTrack.append(self._Toon__colorToonGloves(None, lerpTime))
+            greenTrack.append(self.__colorToonSkin(None, lerpTime))
+            greenTrack.append(self.__colorToonEars(None, None, lerpTime))
+            greenTrack.append(self.__colorScaleToonMuzzle(None, lerpTime))
+            greenTrack.append(self.__colorToonGloves(None, lerpTime))
         track.append(greenTrack)
         return track
 
     
-    def _Toon__colorToonSkin(self, color, lerpTime):
+    def __colorToonSkin(self, color, lerpTime):
         track = Sequence()
         colorTrack = Parallel()
         torsoPieces = self.getPieces(('torso', ('arms', 'neck')))
@@ -2645,7 +2635,7 @@ class Toon(Avatar.Avatar, ToonHead):
         return track
 
     
-    def _Toon__colorToonEars(self, color, colorScale, lerpTime):
+    def __colorToonEars(self, color, colorScale, lerpTime):
         track = Sequence()
         earPieces = self.getPieces(('head', '*ear*'))
         if len(earPieces) == 0:
@@ -2670,7 +2660,7 @@ class Toon(Avatar.Avatar, ToonHead):
         return track
 
     
-    def _Toon__colorScaleToonMuzzle(self, scale, lerpTime):
+    def __colorScaleToonMuzzle(self, scale, lerpTime):
         track = Sequence()
         colorTrack = Parallel()
         muzzlePieces = self.getPieces(('head', '*muzzle*'))
@@ -2684,7 +2674,7 @@ class Toon(Avatar.Avatar, ToonHead):
         return track
 
     
-    def _Toon__colorToonGloves(self, color, lerpTime):
+    def __colorToonGloves(self, color, lerpTime):
         track = Sequence()
         colorTrack = Parallel()
         glovePieces = self.getPieces(('torso', '*hands*'))
@@ -2700,16 +2690,16 @@ class Toon(Avatar.Avatar, ToonHead):
         return track
 
     
-    def _Toon__doBigAndWhite(self, color, scale, lerpTime):
+    def __doBigAndWhite(self, color, scale, lerpTime):
         track = Parallel()
-        track.append(self._Toon__doToonColor(color, lerpTime))
-        track.append(self._Toon__doToonScale(scale, lerpTime))
+        track.append(self.__doToonColor(color, lerpTime))
+        track.append(self.__doToonScale(scale, lerpTime))
         return track
 
     
-    def _Toon__doVirtual(self):
+    def __doVirtual(self):
         track = Parallel()
-        track.append(self._Toon__doToonColor(VBase4(0.25, 0.25, 1.0, 1), 0.0))
+        track.append(self.__doToonColor(VBase4(0.25, 0.25, 1.0, 1), 0.0))
         self.setPartsAdd(self.getHeadParts())
         self.setPartsAdd(self.getTorsoParts())
         self.setPartsAdd(self.getHipsParts())
@@ -2717,9 +2707,9 @@ class Toon(Avatar.Avatar, ToonHead):
         return track
 
     
-    def _Toon__doUnVirtual(self):
+    def __doUnVirtual(self):
         track = Parallel()
-        track.append(self._Toon__doToonColor(None, 0.0))
+        track.append(self.__doToonColor(None, 0.0))
         self.setPartsNormal(self.getHeadParts(), 1)
         self.setPartsNormal(self.getTorsoParts(), 1)
         self.setPartsNormal(self.getHipsParts(), 1)
@@ -2754,7 +2744,7 @@ class Toon(Avatar.Avatar, ToonHead):
         
 
     
-    def _Toon__doToonGhostColorScale(self, scale, lerpTime, keepDefault = 0):
+    def __doToonGhostColorScale(self, scale, lerpTime, keepDefault = 0):
         if keepDefault:
             self.defaultColorScale = scale
         
@@ -2799,7 +2789,7 @@ class Toon(Avatar.Avatar, ToonHead):
         
 
     
-    def _Toon__doToonColor(self, color, lerpTime):
+    def __doToonColor(self, color, lerpTime):
         node = self.getGeomNode()
         if color == None:
             return Func(node.clearColor)
@@ -2807,7 +2797,7 @@ class Toon(Avatar.Avatar, ToonHead):
             return Func(node.setColor, color, 1)
 
     
-    def _Toon__doPartsColorScale(self, scale, lerpTime):
+    def __doPartsColorScale(self, scale, lerpTime):
         if scale == None:
             scale = VBase4(1, 1, 1, 1)
         
@@ -2845,85 +2835,85 @@ class Toon(Avatar.Avatar, ToonHead):
         return track
 
     
-    def _Toon__doCheesyEffect(self, effect, lerpTime):
+    def __doCheesyEffect(self, effect, lerpTime):
         if effect == ToontownGlobals.CEBigHead:
-            return self._Toon__doHeadScale(2.5, lerpTime)
+            return self.__doHeadScale(2.5, lerpTime)
         elif effect == ToontownGlobals.CESmallHead:
-            return self._Toon__doHeadScale(0.5, lerpTime)
+            return self.__doHeadScale(0.5, lerpTime)
         elif effect == ToontownGlobals.CEBigLegs:
-            return self._Toon__doLegsScale(1.3999999999999999, lerpTime)
+            return self.__doLegsScale(1.3999999999999999, lerpTime)
         elif effect == ToontownGlobals.CESmallLegs:
-            return self._Toon__doLegsScale(0.59999999999999998, lerpTime)
+            return self.__doLegsScale(0.59999999999999998, lerpTime)
         elif effect == ToontownGlobals.CEBigToon:
-            return self._Toon__doToonScale(ToontownGlobals.BigToonScale, lerpTime)
+            return self.__doToonScale(ToontownGlobals.BigToonScale, lerpTime)
         elif effect == ToontownGlobals.CESmallToon:
-            return self._Toon__doToonScale(ToontownGlobals.SmallToonScale, lerpTime)
+            return self.__doToonScale(ToontownGlobals.SmallToonScale, lerpTime)
         elif effect == ToontownGlobals.CEFlatPortrait:
-            return self._Toon__doToonScale(VBase3(1, 0.050000000000000003, 1), lerpTime)
+            return self.__doToonScale(VBase3(1, 0.050000000000000003, 1), lerpTime)
         elif effect == ToontownGlobals.CEFlatProfile:
-            return self._Toon__doToonScale(VBase3(0.050000000000000003, 1, 1), lerpTime)
+            return self.__doToonScale(VBase3(0.050000000000000003, 1, 1), lerpTime)
         elif effect == ToontownGlobals.CETransparent:
             return self.doToonColorScale(VBase4(1, 1, 1, 0.59999999999999998), lerpTime, keepDefault = 1)
         elif effect == ToontownGlobals.CENoColor:
-            return self._Toon__doToonColor(VBase4(1, 1, 1, 1), lerpTime)
+            return self.__doToonColor(VBase4(1, 1, 1, 1), lerpTime)
         elif effect == ToontownGlobals.CEInvisible:
-            return self._Toon__doPartsColorScale(VBase4(1, 1, 1, 0), lerpTime)
+            return self.__doPartsColorScale(VBase4(1, 1, 1, 0), lerpTime)
         elif effect == ToontownGlobals.CEPumpkin:
-            return self._Toon__doPumpkinHeadSwitch(lerpTime, toPumpkin = True)
+            return self.__doPumpkinHeadSwitch(lerpTime, toPumpkin = True)
         elif effect == ToontownGlobals.CEBigWhite:
-            return self._Toon__doBigAndWhite(VBase4(1, 1, 1, 1), ToontownGlobals.BigToonScale, lerpTime)
+            return self.__doBigAndWhite(VBase4(1, 1, 1, 1), ToontownGlobals.BigToonScale, lerpTime)
         elif effect == ToontownGlobals.CESnowMan:
-            return self._Toon__doSnowManHeadSwitch(lerpTime, toSnowMan = True)
+            return self.__doSnowManHeadSwitch(lerpTime, toSnowMan = True)
         elif effect == ToontownGlobals.CEGreenToon:
-            return self._Toon__doGreenToon(lerpTime, toGreen = True)
+            return self.__doGreenToon(lerpTime, toGreen = True)
         elif effect == ToontownGlobals.CEVirtual:
-            return self._Toon__doVirtual()
+            return self.__doVirtual()
         elif effect == ToontownGlobals.CEGhost:
             alpha = 0
             if localAvatar.seeGhosts:
                 alpha = 0.20000000000000001
             
-            return Sequence(self._Toon__doToonGhostColorScale(VBase4(1, 1, 1, alpha), lerpTime, keepDefault = 1), Func(self.nametag3d.hide))
+            return Sequence(self.__doToonGhostColorScale(VBase4(1, 1, 1, alpha), lerpTime, keepDefault = 1), Func(self.nametag3d.hide))
         
         return Sequence()
 
     
-    def _Toon__undoCheesyEffect(self, effect, lerpTime):
+    def __undoCheesyEffect(self, effect, lerpTime):
         if effect == ToontownGlobals.CEBigHead:
-            return self._Toon__doHeadScale(None, lerpTime)
+            return self.__doHeadScale(None, lerpTime)
         elif effect == ToontownGlobals.CESmallHead:
-            return self._Toon__doHeadScale(None, lerpTime)
+            return self.__doHeadScale(None, lerpTime)
         
         if effect == ToontownGlobals.CEBigLegs:
-            return self._Toon__doLegsScale(None, lerpTime)
+            return self.__doLegsScale(None, lerpTime)
         elif effect == ToontownGlobals.CESmallLegs:
-            return self._Toon__doLegsScale(None, lerpTime)
+            return self.__doLegsScale(None, lerpTime)
         elif effect == ToontownGlobals.CEBigToon:
-            return self._Toon__doToonScale(None, lerpTime)
+            return self.__doToonScale(None, lerpTime)
         elif effect == ToontownGlobals.CESmallToon:
-            return self._Toon__doToonScale(None, lerpTime)
+            return self.__doToonScale(None, lerpTime)
         elif effect == ToontownGlobals.CEFlatPortrait:
-            return self._Toon__doToonScale(None, lerpTime)
+            return self.__doToonScale(None, lerpTime)
         elif effect == ToontownGlobals.CEFlatProfile:
-            return self._Toon__doToonScale(None, lerpTime)
+            return self.__doToonScale(None, lerpTime)
         elif effect == ToontownGlobals.CETransparent:
             return self.doToonColorScale(None, lerpTime, keepDefault = 1)
         elif effect == ToontownGlobals.CENoColor:
-            return self._Toon__doToonColor(None, lerpTime)
+            return self.__doToonColor(None, lerpTime)
         elif effect == ToontownGlobals.CEInvisible:
-            return self._Toon__doPartsColorScale(None, lerpTime)
+            return self.__doPartsColorScale(None, lerpTime)
         elif effect == ToontownGlobals.CEPumpkin:
-            return self._Toon__doPumpkinHeadSwitch(lerpTime, toPumpkin = False)
+            return self.__doPumpkinHeadSwitch(lerpTime, toPumpkin = False)
         elif effect == ToontownGlobals.CEBigWhite:
-            return self._Toon__doBigAndWhite(None, None, lerpTime)
+            return self.__doBigAndWhite(None, None, lerpTime)
         elif effect == ToontownGlobals.CESnowMan:
-            return self._Toon__doSnowManHeadSwitch(lerpTime, toSnowMan = False)
+            return self.__doSnowManHeadSwitch(lerpTime, toSnowMan = False)
         elif effect == ToontownGlobals.CEGreenToon:
-            return self._Toon__doGreenToon(lerpTime, toGreen = False)
+            return self.__doGreenToon(lerpTime, toGreen = False)
         elif effect == ToontownGlobals.CEVirtual:
-            return self._Toon__doUnVirtual()
+            return self.__doUnVirtual()
         elif effect == ToontownGlobals.CEGhost:
-            return Sequence(Func(self.nametag3d.show), self._Toon__doToonGhostColorScale(None, lerpTime, keepDefault = 1))
+            return Sequence(Func(self.nametag3d.show), self.__doToonGhostColorScale(None, lerpTime, keepDefault = 1))
         
         return Sequence()
 
@@ -3085,12 +3075,12 @@ class Toon(Avatar.Avatar, ToonHead):
         import toontown.toonbase
         BattleProps = BattleProps
         import toontown.battle
-        if self.pieModel != None and self._Toon__pieModelType != self.pieType:
+        if self.pieModel != None and self.__pieModelType != self.pieType:
             self.pieModel.detachNode()
             self.pieModel = None
         
         if self.pieModel == None:
-            self._Toon__pieModelType = self.pieType
+            self.__pieModelType = self.pieType
             pieName = ToontownBattleGlobals.pieNames[self.pieType]
             self.pieModel = BattleProps.globalPropPool.getProp(pieName)
             self.pieScale = self.pieModel.getScale()
