@@ -1,11 +1,9 @@
-global DogDialogueArray, CatDialogueArray, HorseDialogueArray, RabbitDialogueArray, MouseDialogueArray, DuckDialogueArray, MonkeyDialogueArray, BearDialogueArray, PigDialogueArray, Preloaded
 from otp.avatar import Avatar
 from otp.avatar.Avatar import teleportNotify
 import ToonDNA
 from direct.task.Task import Task
 from toontown.suit import SuitDNA
 from direct.actor import Actor
-import string
 from ToonHead import *
 from pandac.PandaModules import *
 from direct.interval.IntervalGlobal import *
@@ -24,6 +22,7 @@ from otp.otpbase import OTPGlobals
 from toontown.effects import DustCloud
 from direct.showbase.PythonUtil import Functor
 from toontown.distributed import DelayDelete
+from otp.nametag.NametagConstants import *
 import AccessoryGlobals
 import types
 
@@ -225,41 +224,32 @@ def loadPhaseAnims(phaseStr = 'phase_3', loadFlag = 1):
     for key in LegDict.keys():
         for anim in animList:
             if loadFlag:
-                continue
+                pass
             if LegsAnimDict[key].has_key(anim[0]):
                 if base.localAvatar.style.legs == key:
                     base.localAvatar.unloadAnims([
                         anim[0]], 'legs', None)
-                
-            base.localAvatar.style.legs == key
-        
-    
+
     for key in TorsoDict.keys():
         for anim in animList:
             if loadFlag:
-                continue
+                pass
             if TorsoAnimDict[key].has_key(anim[0]):
                 if base.localAvatar.style.torso == key:
                     base.localAvatar.unloadAnims([
                         anim[0]], 'torso', None)
-                
-            base.localAvatar.style.torso == key
-        
-    
+
     for key in HeadDict.keys():
         if string.find(key, 'd') >= 0:
             for anim in animList:
                 if loadFlag:
-                    continue
+                    pass
                 if HeadAnimDict[key].has_key(anim[0]):
                     if base.localAvatar.style.head == key:
                         base.localAvatar.unloadAnims([
                             anim[0]], 'head', None)
-                    
-                base.localAvatar.style.head == key
-            
-    
 
+    return
 
 def compileGlobalAnimList():
     phaseList = [
